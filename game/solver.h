@@ -22,9 +22,16 @@ int checkIfValid(GameBoard board, int z,int x, int y);
 
 GameBoard generateSolution();
 
+/*
+ * we need to make sure that fixed it is initialized to 0 unless really fixed
+ */
 GameBoard generateBoard(GameBoard solution, int fixedAmnt);
 
-int hasSolution(GameBoard board);
+
+/*
+ * function needs to supply new solution + print appropriate message.
+ */
+GameBoard hasSolution(GameBoard board);
 
 
 
