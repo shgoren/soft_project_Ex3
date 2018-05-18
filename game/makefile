@@ -15,3 +15,4 @@ parser.o: parser.c parser.h
 	
 clean:
 	rm -f $(OBJS) $(EXEC)
+	
