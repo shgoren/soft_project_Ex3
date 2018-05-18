@@ -8,11 +8,11 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-extern int TABLE_SIZE = 9;
-extern int BLOCK_SIZE = 3;
+#define TABLE_SIZE 9
+#define BOX_SIZE 3
 
 typedef struct gameBoardStruct{
-	int[TABLE_SIZE][TABLE_SIZE][2];
+	int boardMatrix[TABLE_SIZE][TABLE_SIZE][2];
 } GameBoard;
 
 
@@ -21,17 +21,17 @@ void startGame();
 /*
  * set value z to cell (x,y)
  */
-int setCell(int z, int x, int y);
+void setCell(int z, int x, int y);
 
 /*
  * give hint in cell (x,y)
  */
-int hintCell(int x,int y);
+void hintCell(int x,int y);
 
 /*
  * return if the board is solveable or not
  */
-int validateBoard(GameBoard board);
+void validateBoard(GameBoard board);
 
 /*
  * a.	Restart the game by starting over with the initialization procedure
@@ -47,20 +47,17 @@ void restartGame();
  * close everything
  * set fullcells to 81
  */
-void exit();
+void exitCommand();
 
 /*
  * PRIVATE METHOMDS FOLLOW
  */
 
-/*
- * read command from user an call the appropriate game function
- */
 void printBoard(GameBoard board);
 
 void gamePlay();
 
-void isGameOver();
+int isGameOver();
 
 
 

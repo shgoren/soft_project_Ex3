@@ -8,6 +8,8 @@
 #ifndef SOLVER_H_
 #define SOLVER_H_
 
+#include "game.h"
+
 /*
  * seed to be set by main for randomization
  */
@@ -21,6 +23,8 @@ int checkIfValid(GameBoard board, int z,int x, int y);
 GameBoard generateSolution();
 
 GameBoard generateBoard(GameBoard solution, int fixedAmnt);
+
+int hasSolution(GameBoard board);
 
 
 

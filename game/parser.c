@@ -68,6 +68,7 @@ int * readCommand(){
 				if (command == NULL){
 					break;
 				}
+				free(line);
 				return command;
 			}
 		}
