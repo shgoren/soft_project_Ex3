@@ -16,7 +16,7 @@ int readFixedAmnt();
 /*
  * read command from user an call the appropriate game function
  */
-int *readCommand();
+int * readCommand();
 
 
 
