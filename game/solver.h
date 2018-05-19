@@ -9,11 +9,12 @@
 #define SOLVER_H_
 
 #include "game.h"
+#include <time.h>
 
 /*
  * seed to be set by main for randomization
  */
-extern int seed;
+void setSeed();
 
 /*
  * check if z can be placed legally in (x,y) and print the corresponding message

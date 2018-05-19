@@ -95,8 +95,8 @@ int * readSpecificCommand(int type, int varAmnt , char *delim){
 	/* read x y z */
 	for(i=1 ; i<varAmnt+1; ++i){
 		token = strtok(NULL, delim);
-		command[i] = (int)strtol(token, NULL, 10);
-		if(command[i] == 0){
+		command[i] = ((int)strtol(token, NULL, 10))-1;
+		if(command[i] == -1){
 			return NULL;
 		}
 	}

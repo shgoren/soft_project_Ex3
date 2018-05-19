@@ -2,8 +2,11 @@
 #include <stdio.h>
 
 int main(void){
-	int x, *y,i;
-
+	/*
+	int x;
+	 */
+	int *y,i;
+/*
 	printf("reading amount\n");
 	x =readFixedAmnt();
 	printf("%d",x);
@@ -13,6 +16,7 @@ int main(void){
 	printf("reading amount\n");
 	x =readFixedAmnt();
 	printf("%d",x);
+*/
 
 	printf("reading command\n");
 	y = readCommand();
