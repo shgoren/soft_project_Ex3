@@ -1,8 +1,116 @@
+#include "solver.h"
+
+int backtracking(GameBoard board, int random, int x, int y);
+
+
+void setSeed(int seed){
+	srand(seed);
+}
+
 /*
- * solver.c
- *
- *  Created on: 17 May 2018
- *      Author: hp envy
+ * x and y scale start from 0
  */
+int checkIfValid(GameBoard board, int x,int y, int z){
+	int i, j, xBlock, yBlock;
+
+	/* lowest coordinate of the block on x and y axis */
+	xBlock = (x/BLOCK_SIZE)*BLOCK_SIZE;
+	yBlock = (y/BLOCK_SIZE)*BLOCK_SIZE;
+
+	/* check row x */
+	for(i=1; i<TABLE_SIZE; ++i)
+		if(i != y)
+			if(board.boardMatrix[x][i][0] == z)
+				return 0;
+
+	/* check col y */
+	for(i=1; i<TABLE_SIZE; ++i)
+		if(i != x)
+			if(board.boardMatrix[x][i][0] == z)
+				return 0;
+
+	/* check block */
+	for(i=xBlock; i<xBlock+BLOCK_SIZE; ++i)
+		for(j=yBlock; j<yBlock+BLOCK_SIZE; ++j)
+			if(i!=x && j!=y)
+				if(board.boardMatrix[x][i][0] == z)
+					return 0;
+	return 1;
+}
 
 
+GameBoard generateSolution(){
+	GameBoard x;
+	return x;
+}
+
+GameBoard generateBoard(GameBoard solution, int fixedAmnt){
+	return solution;
+}
+
+int hasSolution(GameBoard board){
+	return 0;
+}
+
+int backtracking(GameBoard board, int random, int x, int y){
+	int i, currVal = 0;
+	int possibleVals[TABLE_SIZE],
+		options = 0,
+		success=0;
+
+	/*
+	 * stop if the end of the table was reached
+	 */
+	if(x==(TABLE_SIZE-1) && y==(TABLE_SIZE-1))
+		return 1;
+	/*
+	 * check if cell is blank
+	 */
+	if(board.boardMatrix[x][y][0] == 0){
+		/*
+		 * find all possible values for the cell based on current state
+		 */
+		for(i=0; i<TABLE_SIZE; ++i){
+			possibleVals[i] = checkIfValid(board,x,y,i+1);
+			options += possibleVals[i];
+		}
+
+		while(options>0 && success==0){
+			/*
+			 * choose a vlaue for the cell
+			 */
+			while(possibleVals[currVal] == 0){
+				if(random)
+					currVal = rand()%TABLE_SIZE;
+				else
+					currVal++;
+			}
+
+
+			possibleVals[currVal] = 0;
+
+			/*
+			 * place the value in the cell and make the recursive call
+			 */
+			board.boardMatrix[x][y][1] = currVal+1;
+			++x;
+			if(x==TABLE_SIZE){
+				x=0;
+				++y;
+			}
+			success = backtracking(board,random,x,y);
+		}
+		return success;
+	}
+
+	/*
+	 * advance to next coordinate
+	 */
+	++x;
+	if(x==TABLE_SIZE){
+		x=0;
+		++y;
+	}
+
+	return backtracking(board,random,x,y);
+}

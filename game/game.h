@@ -9,7 +9,7 @@
 #define GAME_H_
 
 #define TABLE_SIZE 9
-#define BOX_SIZE 3
+#define BLOCK_SIZE 3
 
 typedef struct gameBoardStruct{
 	int boardMatrix[TABLE_SIZE][TABLE_SIZE][2];
