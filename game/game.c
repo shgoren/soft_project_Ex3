@@ -13,6 +13,7 @@ int fullCells;
 void startGame(){
 	int x;
 	x = readFixedAmnt();
+	fullCells = x;
 	solution = generateSolution();
 	board = generateBoard(solution, x);
 
@@ -31,7 +32,10 @@ int setCell(int z, int x, int y){
 		return 0;
 	}
 	board.boardMatrix[x][y][0]=z;
+	fullCells++;
 	printBoard();
+	if(isGameOver())
+		printf("Puzzle solved successfully\n");
 	return 1;
 }
 
@@ -82,7 +86,7 @@ void hintCell(int x,int y){
 /*
  * return if the board is solvable or not and stores new solution. hasSolution is in charge of the prints
  */
-void validateBoard(GameBoard board){
+void validateBoard(){
 	solution = hasSolution(board);
 }
 

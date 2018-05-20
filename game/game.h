@@ -31,7 +31,7 @@ void hintCell(int x,int y);
 /*
  * return if the board is solveable or not
  */
-void validateBoard(GameBoard board);
+void validateBoard();
 
 /*
  * a.	Restart the game by starting over with the initialization procedure
