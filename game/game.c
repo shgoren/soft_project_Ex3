@@ -1,5 +1,4 @@
 /*#include "parser.h"
-#include "solver.h"
 */
 #include "game.h"
 #include <stdio.h>
@@ -11,8 +10,16 @@ GameBoard solution;
 int fixedAmnt;
 int fullCells;
 
+/*
+ * checks whether cell (x,y) is fixed.
+ */
 int isFixed(int x,int y);
+/*
+ * creates a deep copy of the game board.
+ */
 void deepCopy(GameBoard *to, GameBoard *from);
+
+
 
 void startGame(){
 	int x;
@@ -25,9 +32,7 @@ void startGame(){
 
 }
 
-/*
- * set value z to cell (x,y)
- */
+
 int setCell(int z, int x, int y){
 	if(isFixed(x,y)){
 		printf("Error: cell is fixed\n");
@@ -44,26 +49,23 @@ int setCell(int z, int x, int y){
 	return 1;
 }
 
-/*
- * checks if z is legal in place (x,y)
- * checks row and col, and then find top left corner of block and scans block
- */
+
 int isLegalSet(GameBoard *board ,int z, int x, int y){
 	int i=0;
 	int j=0;
 	int currRow=x;
 	int currCol=y;
-	for(;currRow<10;currRow++){
+	for(;currRow<10;currRow++){ /*scan relevant column for collisions*/
 		if(z==board->boardMatrix[currRow][y][0])
 			return 0;
 	}
-	for(;currCol<10;currCol++){
+	for(;currCol<10;currCol++){/*scan relevant row for collisions*/
 			if(z==board->boardMatrix[x][currCol][0])
 				return 0;
 		}
 	currRow=x-(x%BLOCK_SIZE);
 	currCol=y-(y%BLOCK_SIZE);
-	for(;i<BLOCK_SIZE;i++){
+	for(;i<BLOCK_SIZE;i++){/*scan relevant block for collisions, starting top left corner.*/
 		for(;j<BLOCK_SIZE;j++){
 			if(z==board->boardMatrix[currRow+i][currCol+j][0])
 			return 0;
@@ -73,24 +75,18 @@ int isLegalSet(GameBoard *board ,int z, int x, int y){
 
 }
 
-/*
- * check if value in (x,y) is legal
- */
+
 int isFixed(int x, int y){
 	return board.boardMatrix[x][y][1];
 }
 
-/*
- * give hint in cell (x,y) from solution matrix
- */
+
 void hintCell(int x,int y){
 	int hint = solution.boardMatrix[x][y][0];
 	printf("Hint: set cell to %d \n",hint);
 }
 
-/*
- * return if the board is solvable or not and stores new solution. hasSolution is in charge of the prints
- */
+
 void validateBoard(){
 	GameBoard newSol;
 	/* ******************************** */
@@ -99,11 +95,7 @@ void validateBoard(){
 }
 
 /*
- * a.	Restart the game by starting over with the initialization procedure
- * 		(followed by solving a new puzzle).
- * b. 	Restart the program by asking the
- *  	user again for the number of cells to fill, proceeding to the initialization
- *  	 procedure and then a new game.
+ * a.	Restart the game by calling startGame().
  */
 void restartGame(){
 	startGame();
@@ -112,7 +104,6 @@ void restartGame(){
 /*
  * free space
  * close everything
- * set fullcells to 81
  */
 void exitCommand(){
 	printf("Exiting…\n");
@@ -155,9 +146,6 @@ void printBoard(GameBoard board){
 	printf("----------------------------------\n");
 }
 
-void gamePlay(){
-
-}
 
 int isGameOver(){
 	return (fullCells == 81);
