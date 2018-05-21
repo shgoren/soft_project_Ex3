@@ -1,8 +1,10 @@
 #include "solver.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 int backtracking(GameBoard *board, int random, int x, int y);
 
+void printboardmat(GameBoard *board);
 
 void setSeed(int seed){
 	srand(seed);
@@ -41,7 +43,8 @@ int checkIfValid(GameBoard board, int x,int y, int z){
 
 
 GameBoard* generateSolution(GameBoard *board){
-	backtracking(board, 1, 0, 0);
+	printf("return from backtracking: %d \n",backtracking(board, 1, 0, 0));
+	printboardmat(board);
 	return board;
 }
 
@@ -51,8 +54,10 @@ GameBoard* generateBoard(GameBoard *solution,GameBoard *board, int fixedAmnt){
 	for(i=0; i<fixedAmnt; ++i){
 		x = (rand() % 9)+1;
 		y = (rand() % 9)+1;
-		if( board->boardMatrix[x][y][0] == 0 )
+		if( board->boardMatrix[x][y][0] == 0 ){
 			board->boardMatrix[x][y][0] = solution->boardMatrix[x][y][0];
+			board->boardMatrix[x][y][1] = 1;
+		}
 		else
 			--i;
 	}
@@ -72,6 +77,11 @@ int backtracking(GameBoard *board, int random, int x, int y){
 		options = 0,
 		success=0;
 
+	/* ********************************	 */
+	printf("in backtracking");
+	printf("%d", board->boardMatrix[1][1][0]);
+	/* ********************************	 */
+
 	/*
 	 * stop if the end of the table was reached
 	 */
@@ -85,7 +95,7 @@ int backtracking(GameBoard *board, int random, int x, int y){
 		 * find all possible values for the cell based on current state
 		 */
 		for(i=0; i<TABLE_SIZE; ++i){
-			possibleVals[i] = isLegalSet(&board,x,y,i+1);
+			possibleVals[i] = isLegalSet(board,x,y,i+1);
 			options += possibleVals[i];
 		}
 
@@ -129,4 +139,12 @@ int backtracking(GameBoard *board, int random, int x, int y){
 	}
 
 	return backtracking(board,random,x,y);
+}
+
+void printboardmat(GameBoard *board){
+	int i,j;
+
+	for (i=0; i<TABLE_SIZE; ++i)
+		for (j=0; j<TABLE_SIZE; ++j)
+			printf("%d",board->boardMatrix[i][j][0]);
 }

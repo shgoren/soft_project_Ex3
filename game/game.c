@@ -21,6 +21,8 @@ void startGame(){
 	solution = *generateSolution(&board);
 	board = *generateBoard(&solution, &board , x);
 
+	printBoard(board);
+
 }
 
 /*
