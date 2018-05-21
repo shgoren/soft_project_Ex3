@@ -4,14 +4,9 @@
 
 
 int main(){
-<<<<<<< HEAD
-	int command[4];
-=======
-	int true = 1;
 	int *command;
->>>>>>> master
 	startGame();
-	while(!isGameOver){
+	while(1){
 		command = readCommand();
 		if(command[0]==1 && !isGameOver()){ /* command is "set" */
 			setCell(command[1], command[2], command[3]);
@@ -31,13 +26,13 @@ int main(){
 		}
 		if(command[0]==5){ /*command is "exit" */
 			exitCommand();
+		else{
+			printf("Error: invalid command\n");
+		}
+
 		}
 
 	}
 
-<<<<<<< HEAD
-
-=======
 	return 0;
->>>>>>> master
 }
