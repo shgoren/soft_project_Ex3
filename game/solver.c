@@ -43,8 +43,7 @@ int checkIfValid(GameBoard board, int x,int y, int z){
 
 
 GameBoard* generateSolution(GameBoard *board){
-	printf("return from backtracking: %d \n",backtracking(board, 1, 0, 0));
-	printboardmat(board);
+	backtracking(board, 1, 0, 0);
 	return board;
 }
 
@@ -77,10 +76,7 @@ int backtracking(GameBoard *board, int random, int x, int y){
 		options = 0,
 		success=0;
 
-	/* ********************************	 */
-	printf("in backtracking");
-	printf("%d", board->boardMatrix[1][1][0]);
-	/* ********************************	 */
+	printBoard(*board);
 
 	/*
 	 * stop if the end of the table was reached
@@ -95,23 +91,38 @@ int backtracking(GameBoard *board, int random, int x, int y){
 		 * find all possible values for the cell based on current state
 		 */
 		for(i=0; i<TABLE_SIZE; ++i){
-			possibleVals[i] = isLegalSet(board,x,y,i+1);
+			possibleVals[i] = isLegalSet(board,i+1,x,y);
 			options += possibleVals[i];
 		}
 
+		/* *****************8 */
+		printf("************%d , %d*********\n",x,y);
+		for(i=0; i<TABLE_SIZE; ++i){
+			printf("%d = %d ",i+1,isLegalSet(board,i+1,x,y));
+		}
+		/* *****************8 */
 		while(options>0 && success==0){
 			/*
 			 * choose a vlaue for the cell
 			 */
+
+			/* ********************************	 */
+			printf("\nin first while\n");
+			/* ********************************	 */
 			while(possibleVals[currVal] == 0){
 				if(random)
 					currVal = rand()%TABLE_SIZE;
 				else
 					currVal++;
+
+				/* ********************************	 */
+				printf("in second while\n");
+				/* ********************************	 */
 			}
 
-
+			/*take the used value out	 */
 			possibleVals[currVal] = 0;
+			--options;
 
 			/*
 			 * place the value in the cell and make the recursive call
