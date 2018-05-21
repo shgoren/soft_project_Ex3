@@ -2,10 +2,9 @@
 
 
 int main(){
-	int true = 1;
 	int command[4];
 	startGame();
-	while(true){
+	while(!isGameOver){
 		command = readCommand();
 		if(command[0]==0 && !isGameOver()){ /* command is "set" */
 			setCell(command[1], command[2], command[3]);
@@ -28,5 +27,6 @@ int main(){
 		}
 
 	}
+
 
 }
