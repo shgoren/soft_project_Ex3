@@ -144,6 +144,7 @@ void printBoard(GameBoard board){
 						printf(" ");
 					else
 						printf("%d",board.boardMatrix[x][y][0]);
+					y++;
 				}
 				printf(" ");
 			}
