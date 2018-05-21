@@ -1,6 +1,7 @@
 #include "solver.h"
+#include <stdlib.h>
 
-int backtracking(GameBoard board, int random, int x, int y);
+int backtracking(GameBoard *board, int random, int x, int y);
 
 
 void setSeed(int seed){
@@ -39,20 +40,33 @@ int checkIfValid(GameBoard board, int x,int y, int z){
 }
 
 
-GameBoard generateSolution(){
-	GameBoard x;
-	return x;
+GameBoard* generateSolution(GameBoard *board){
+	backtracking(board, 1, 0, 0);
+	return board;
 }
 
-GameBoard generateBoard(GameBoard solution, int fixedAmnt){
+GameBoard* generateBoard(GameBoard *solution,GameBoard *board, int fixedAmnt){
+	int i,x, y;
+
+	for(i=0; i<fixedAmnt; ++i){
+		x = (rand() % 9)+1;
+		y = (rand() % 9)+1;
+		if( board->boardMatrix[x][y][0] == 0 )
+			board->boardMatrix[x][y][0] = solution->boardMatrix[x][y][0];
+		else
+			--i;
+	}
 	return solution;
 }
 
-int hasSolution(GameBoard board){
-	return 0;
+GameBoard* hasSolution(GameBoard *board){
+	if( backtracking(board, 0, 0, 0) == 1)
+		return board;
+	else
+		return NULL;
 }
 
-int backtracking(GameBoard board, int random, int x, int y){
+int backtracking(GameBoard *board, int random, int x, int y){
 	int i, currVal = 0;
 	int possibleVals[TABLE_SIZE],
 		options = 0,
@@ -66,12 +80,12 @@ int backtracking(GameBoard board, int random, int x, int y){
 	/*
 	 * check if cell is blank
 	 */
-	if(board.boardMatrix[x][y][0] == 0){
+	if(board->boardMatrix[x][y][0] == 0){
 		/*
 		 * find all possible values for the cell based on current state
 		 */
 		for(i=0; i<TABLE_SIZE; ++i){
-			possibleVals[i] = checkIfValid(board,x,y,i+1);
+			possibleVals[i] = isLegalSet(&board,x,y,i+1);
 			options += possibleVals[i];
 		}
 
@@ -92,7 +106,7 @@ int backtracking(GameBoard board, int random, int x, int y){
 			/*
 			 * place the value in the cell and make the recursive call
 			 */
-			board.boardMatrix[x][y][1] = currVal+1;
+			board->boardMatrix[x][y][0] = currVal+1;
 			++x;
 			if(x==TABLE_SIZE){
 				x=0;
@@ -100,6 +114,8 @@ int backtracking(GameBoard board, int random, int x, int y){
 			}
 			success = backtracking(board,random,x,y);
 		}
+		if (success == 0)
+			board->boardMatrix[x][y][0] = 0;
 		return success;
 	}
 

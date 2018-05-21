@@ -3,6 +3,7 @@
 */
 #include "game.h"
 #include <stdio.h>
+#include "solver.h"
 
 
 GameBoard board;
@@ -10,12 +11,15 @@ GameBoard solution;
 int fixedAmnt;
 int fullCells;
 
+int isFixed(int x,int y);
+void deepCopy(GameBoard *to, GameBoard *from);
+
 void startGame(){
 	int x;
 	x = readFixedAmnt();
 	fullCells = x;
-	solution = generateSolution();
-	board = generateBoard(solution, x);
+	solution = *generateSolution(&board);
+	board = *generateBoard(&solution, &board , x);
 
 }
 
@@ -27,13 +31,12 @@ int setCell(int z, int x, int y){
 		printf("Error: cell is fixed\n");
 		return 0;
 	}
-	if(!isLegalSet(z,x,y)){
+	if(!isLegalSet(&board,z,x,y)){
 		printf("Error: value is invalid\n");
 		return 0;
 	}
 	board.boardMatrix[x][y][0]=z;
 	fullCells++;
-	printBoard();
 	if(isGameOver())
 		printf("Puzzle solved successfully\n");
 	return 1;
@@ -43,24 +46,24 @@ int setCell(int z, int x, int y){
  * checks if z is legal in place (x,y)
  * checks row and col, and then find top left corner of block and scans block
  */
-int isLegalSet(int z, int x, int y){
+int isLegalSet(GameBoard *board ,int z, int x, int y){
 	int i=0;
 	int j=0;
 	int currRow=x;
 	int currCol=y;
-	for(;currRow<10;currRow++;){
-		if(z==board.boardMatrix[currRow][y][0])
+	for(;currRow<10;currRow++){
+		if(z==board->boardMatrix[currRow][y][0])
 			return 0;
 	}
-	for(;currCol<10;currCol++;){
-			if(z==board.boardMatrix[x][currCol][0])
+	for(;currCol<10;currCol++){
+			if(z==board->boardMatrix[x][currCol][0])
 				return 0;
 		}
 	currRow=x-(x%BLOCK_SIZE);
 	currCol=y-(y%BLOCK_SIZE);
-	for(;i<BLOCK_SIZE;i++;){
-		for(;j<BLOCK_SIZE;j+;){
-			if(z==board.boardMatrix[currRow+i][currCol+j][0])
+	for(;i<BLOCK_SIZE;i++){
+		for(;j<BLOCK_SIZE;j++){
+			if(z==board->boardMatrix[currRow+i][currCol+j][0])
 			return 0;
 			}
 	}
@@ -80,14 +83,17 @@ int isFixed(int x, int y){
  */
 void hintCell(int x,int y){
 	int hint = solution.boardMatrix[x][y][0];
-	printf("Hint: set cell to %d \n",hint)
+	printf("Hint: set cell to %d \n",hint);
 }
 
 /*
  * return if the board is solvable or not and stores new solution. hasSolution is in charge of the prints
  */
 void validateBoard(){
-	solution = hasSolution(board);
+	GameBoard newSol;
+	/* ******************************** */
+	deepCopy(&newSol, &board);
+	solution = *hasSolution(&newSol);
 }
 
 /*
@@ -153,4 +159,12 @@ void gamePlay(){
 
 int isGameOver(){
 	return (fullCells == 81);
+}
+/* copy the content of two gameboards */
+void deepCopy(GameBoard *to, GameBoard *from){
+	int i,j;
+
+	for (i=0; i<TABLE_SIZE; ++i)
+		for (j=0; j<TABLE_SIZE; ++j)
+			to->boardMatrix[i][j][0] = from->boardMatrix[i][j][0];
 }

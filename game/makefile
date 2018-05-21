@@ -1,16 +1,16 @@
 CC = gcc
-OBJS = parser_test.o parser.o
-EXEC = parser_test
+OBJS = solver_test.o solver.o
+EXEC = solver_test
 COMP_FLAG = -ansi -Wall -Wextra \
 -Werror -pedantic-errors
 
 $(EXEC): $(OBJS)
 	$(CC) $(OBJS) -o $@
 	
-parser_test.o: parser.h parser_test.c
+solver_test.o: solver.h solver_test.c
 	$(CC) $(COMP_FLAG) -c $*.c
 	
-parser.o: parser.c parser.h
+solver.o: solver.c solver.h game.h game.c
 	$(CC) $(COMP_FLAG) -c $*.c
 	
 clean:

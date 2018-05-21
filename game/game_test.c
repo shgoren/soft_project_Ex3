@@ -1,26 +1,43 @@
 #include <stdio.h>
-
-int BLOCK_SIZE = 3;
-
-typedef struct gameBoardStruct{
-	int boardMatrix[9][9][2];
-} GameBoard;
-
+#include "game.h"
+#include "solver.h"
+#include "parser.h"
 
 GameBoard board;
 
-void printBoard(GameBoard board);
-int isLegalSet(int z, int x, int y);
 
-
-int isFixed(int x, int y){
-	return board.boardMatrix[x][y][1];
+int main(void){
+	int i=0;
+	int j=0;
+	int n=0;
+	for(;i<9;i++){
+		for(;j<9;j++){
+			board.boardMatrix[i][j][0]=n;
+			n++;
+		}
+	}
+	board.boardMatrix[4][6][1]=1;
+	printBoard(board);
+	setCell(5,2,2);
+	setCell(2,2,2);
+	return 0;
 }
 
 
 /*
+ *
+int isFixed(int x, int y){
+	return board.boardMatrix[x][y][1];
+}
+*/
+
+/*
  * set value z to cell (x,y)
  */
+
+
+/*
+
 int setCell(int z, int x, int y){
 	if(isFixed(x,y)){
 		printf("Error: cell is fixed\n");
@@ -35,10 +52,11 @@ int setCell(int z, int x, int y){
 	return 1;
 }
 
-/*
+
  * checks if z is legal in place (x,y)
  * checks row and col, and then find top left corner of block and scans block
- */
+
+
 int isLegalSet(int z, int x, int y){
 	int i=0;
 	int j=0;
@@ -63,9 +81,10 @@ int isLegalSet(int z, int x, int y){
 	return 1;
 
 }
+*/
 
 
-
+/*
 
 void printBoard(GameBoard board){
 	int i, j, k, l, x=0, y=0;
@@ -97,22 +116,7 @@ void printBoard(GameBoard board){
 	printf("----------------------------------\n");
 }
 
+*/
 
-int main(void){
-	int i=0;
-	int j=0;
-	int n=0;
-	for(;i<9;i++){
-		for(;j<9;j++){
-			board.boardMatrix[i][j][0]=n;
-			n++;
-		}
-	}
-	board.boardMatrix[4][6][1]=1;
-	printBoard(board);
-	setCell(5,2,2);
-	setCell(2,2,2);
-	return 0;
-}
 
 

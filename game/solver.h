@@ -10,6 +10,7 @@
 
 #include "game.h"
 #include <time.h>
+#include <stdlib.h>
 
 /*
  * seed to be set by main for randomization
@@ -21,18 +22,18 @@ void setSeed();
  */
 int checkIfValid(GameBoard board, int z,int x, int y);
 
-GameBoard generateSolution();
+GameBoard* generateSolution(GameBoard *board);
 
 /*
  * we need to make sure that fixed it is initialized to 0 unless really fixed
  */
-GameBoard generateBoard(GameBoard solution, int fixedAmnt);
+GameBoard* generateBoard(GameBoard *solution, GameBoard *board, int fixedAmnt);
 
 
 /*
  * function needs to supply new solution + print appropriate message.
  */
-GameBoard hasSolution(GameBoard board);
+GameBoard* hasSolution(GameBoard *board);
 
 
 

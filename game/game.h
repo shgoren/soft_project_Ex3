@@ -11,6 +11,8 @@
 #define TABLE_SIZE 9
 #define BLOCK_SIZE 3
 
+#include "parser.h"
+
 typedef struct gameBoardStruct{
 	int boardMatrix[TABLE_SIZE][TABLE_SIZE][2];
 } GameBoard;
@@ -21,7 +23,7 @@ void startGame();
 /*
  * set value z to cell (x,y)
  */
-void setCell(int z, int x, int y);
+int setCell(int z, int x, int y);
 
 /*
  * give hint in cell (x,y)
@@ -59,6 +61,6 @@ void gamePlay();
 
 int isGameOver();
 
-
+int isLegalSet(GameBoard *board ,int z, int x, int y);
 
 #endif /* GAME_H_ */
