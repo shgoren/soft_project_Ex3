@@ -64,6 +64,8 @@ GameBoard* generateBoard(GameBoard *solution,GameBoard *board, int fixedAmnt){
 }
 
 GameBoard* hasSolution(GameBoard *board){
+	printf("copy of the curr board\n");
+	printBoard(board);
 	if( backtracking(board, 0, 0, 0) == 1)
 		return board;
 	else
@@ -91,8 +93,10 @@ int backtracking(GameBoard *board, int isRandom, int x, int y){
 	/*
 	 * stop if the end of the table was reached
 	 */
-	if(x==TABLE_SIZE || y==TABLE_SIZE)
+	if(x==TABLE_SIZE || y==TABLE_SIZE){
+		printf("finished solving\n");
 		return 1;
+	}
 	/*
 	 * check if cell is blank
 	 */
