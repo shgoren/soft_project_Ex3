@@ -1,6 +1,7 @@
 #include "game.h"
 #include "solver.h"
 #include "parser.h"
+#include <stdio.h>
 
 #define true 1
 
@@ -25,11 +26,10 @@ int main(){
 			restartGame();
 			continue;
 		}
-		if(command[0]==5){ /*command is "exit" */
+		if(command[0]==5) /*command is "exit" */
 			exitCommand();
 		else{ /* invalid command or set/hint/valudate after puzzle solved */
 			printf("Error: invalid command\n");
-		}
 
 		}
 

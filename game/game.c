@@ -3,6 +3,7 @@
 #include "game.h"
 #include <stdio.h>
 #include "solver.h"
+#include "parser.h"
 
 
 GameBoard board;
@@ -53,43 +54,25 @@ int setCell(int z, int x, int y){
 
 
 int isLegalSet(GameBoard *board ,int z, int x, int y){
-<<<<<<< HEAD
-	int i=0;
-	int j=0;
-	int currRow=x;
-	int currCol=y;
-	for(;currRow<9;currRow++){ /*scan relevant column for collisions*/
-		if(z==board->boardMatrix[currRow][y][0])
 	int i,j,currRow,currCol;
 
-	for(currRow=0;currRow<TABLE_SIZE;++currRow){
-		if(z==board->boardMatrix[currRow][y][0]){
-			return 0;
-		}
-	}
-	for(;currCol<9;currCol++){/*scan relevant row for collisions*/
-			if(z==board->boardMatrix[x][currCol][0])
-=======
 
-	for(currCol=0;currCol<TABLE_SIZE;++currCol){
-			if(z==board->boardMatrix[x][currCol][0]){
+	for(currRow=0;currRow<TABLE_SIZE;++currRow) /*scan relevant column for collisions*/
+		if(z==board->boardMatrix[currRow][y][0])
+			return 0;
+
+	for(currCol=0;currCol<TABLE_SIZE;++currCol)/*scan relevant row for collisions*/
+			if(z==board->boardMatrix[x][currCol][0])
 				return 0;
-			}
-		}
+
 
 	currRow=x-(x%BLOCK_SIZE);
 	currCol=y-(y%BLOCK_SIZE);
-	for(;i<BLOCK_SIZE;i++){/*scan relevant block for collisions, starting top left corner.*/
-		for(;j<BLOCK_SIZE;j++){
+
+	for(i=0;i<BLOCK_SIZE;i++)/*scan relevant block for collisions, starting top left corner.*/
+		for(j=0;j<BLOCK_SIZE;j++)
 			if(z==board->boardMatrix[currRow+i][currCol+j][0])
-			return 0;
-	for(i=0;i<BLOCK_SIZE;i++){
-		for(j=0;j<BLOCK_SIZE;j++){
-			if(z==board->boardMatrix[currRow+i][currCol+j][0]){
 				return 0;
-			}
-		}
-	}
 
 	return 1;
 
@@ -112,7 +95,10 @@ void validateBoard(){
 	/* ******************************** */
 	deepCopy(&newSol, &board);
 	temp = hasSolution(&newSol);
-	if (temp == NULL){
+
+	printBoard(*temp);
+
+	if (temp != NULL){
 		solution = *temp;
 		printf("Validation passed: board is solvable\n");
 	}
