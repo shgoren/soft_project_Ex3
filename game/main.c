@@ -27,7 +27,7 @@ int main(){
 		}
 		if(command[0]==5){ /*command is "exit" */
 			exitCommand();
-		else{ /* invalid command or set/hint/valudate after puzzle solved */
+		else{ /* invalid command or set/hint/validate after puzzle solved */
 			printf("Error: invalid command\n");
 		}
 
