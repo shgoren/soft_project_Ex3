@@ -93,6 +93,7 @@ int backtracking(GameBoard *board, int isRandom, int x, int y){
 	 */
 	if(x==TABLE_SIZE || y==TABLE_SIZE)
 		return 1;
+
 	/*
 	 * check if cell is blank
 	 */

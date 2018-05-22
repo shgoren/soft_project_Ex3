@@ -19,12 +19,18 @@ int isFixed(int x,int y);
  * creates a deep copy of the game board.
  */
 void deepCopy(GameBoard *to, GameBoard *from);
+void initBoard(GameBoard *board);
 
 
 
-void startGame(){
+int startGame(){
 	int x;
+	initBoard(&board);
+	initBoard(&solution);
 	x = readFixedAmnt();
+	/* if EOF was recieved */
+	if (x==-1)
+		return 0;
 	fullCells = x;
 	solution = *generateSolution(&solution);
 	printf("\n ------- solution --------\n");
@@ -32,6 +38,7 @@ void startGame(){
 	printf("\n -------------------------\n");
 	board = *generateBoard(&solution, &board , x);
 	printBoard(board);
+	return 1;
 }
 
 
@@ -95,9 +102,6 @@ void validateBoard(){
 	/* ******************************** */
 	deepCopy(&newSol, &board);
 	temp = hasSolution(&newSol);
-
-	printBoard(*temp);
-
 	if (temp != NULL){
 		solution = *temp;
 		printf("Validation passed: board is solvable\n");
@@ -170,4 +174,14 @@ void deepCopy(GameBoard *to, GameBoard *from){
 	for (i=0; i<TABLE_SIZE; ++i)
 		for (j=0; j<TABLE_SIZE; ++j)
 			to->boardMatrix[i][j][0] = from->boardMatrix[i][j][0];
+}
+
+void initBoard(GameBoard *board){
+	int i,j;
+
+	for(i=0; i<TABLE_SIZE; ++i)
+		for(j=0; j<TABLE_SIZE; ++j){
+			board->boardMatrix[i][j][0]=0;
+			board->boardMatrix[i][j][1]=0;
+		}
 }

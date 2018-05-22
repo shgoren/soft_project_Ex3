@@ -7,7 +7,10 @@
 
 int main(){
 	int *command;
-	startGame();
+	if(startGame() == 0){
+		exitCommand();
+		return 1;
+	}
 	while(1){
 		command = readCommand();
 		if(command[0]==1 && !isGameOver()){ /* command is "set" */

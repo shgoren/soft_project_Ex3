@@ -20,7 +20,7 @@ typedef struct gameBoardStruct{
 
 /* initialization function. recieves fixed cells amount using parser,
  * calls the generation functions of solver.h, stores board and solution, and prints board*/
-void startGame();
+int startGame();
 
 /*
  * set value z to cell (x,y). calls private functions that validates that set is legal.

@@ -16,12 +16,14 @@ int * readSpecificCommand(int type, int varAmnt , char *delim);
  */
 int readFixedAmnt(){
 	int amnt = -1;
-	while(amnt<0 || amnt>80){
+	while(amnt<0 || amnt>80 ){
 		printf("Please enter the number of cells to fill [0-80]:\n");
 		if(scanf("%d", &amnt)==0){
 			printf("Error: scanf has failed\n");
 			exit(0);
 		}
+		if(feof(stdin))
+			return -1;
 		if(amnt<0 || amnt>80)
 			printf("Error: Invalid number of cells to fill (should be between 0 and 80)\n");
 	}
@@ -76,6 +78,7 @@ int * readCommand(){
 	}
 	command = (int*)calloc(4,sizeof(int));
 	command[0] = 5;
+	free(line);
 	return command;
 }
 
@@ -95,6 +98,8 @@ int * readSpecificCommand(int type, int varAmnt , char *delim){
 	/* read x y z */
 	for(i=1 ; i<=varAmnt; ++i){
 		token = strtok(NULL, delim);
+		if(token == NULL)
+			return NULL;
 		command[i] = ((int)strtol(token, NULL, 10))-1;
 		if(command[i] == -1){
 			return NULL;
