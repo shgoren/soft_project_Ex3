@@ -29,9 +29,12 @@ int main(){
 			restartGame();
 			continue;
 		}
-		if(command[0]==5) /*command is "exit" */
+		if(command[0]==5){ /*command is "exit" */
 			exitCommand();
-		else{ /* invalid command or set/hint/valudate after puzzle solved */
+			free(command);
+			return 1;
+		}
+		else{ /* invalid command or set/hint/validate after puzzle solved */
 			printf("Error: invalid command\n");
 
 		}
