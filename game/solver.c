@@ -34,12 +34,12 @@ GameBoard* generateBoard(GameBoard *solution,GameBoard *board, int fixedAmnt){
 }
 
 GameBoard* hasSolution(GameBoard *board){
-	printf("copy of the curr board\n");
-	printBoard(*board);
 	if( backtracking(board, 0, 0, 0) == 1)
 		return board;
-	else
+	else{
+		printf("null returned\n");
 		return NULL;
+	}
 }
 
 int backtracking(GameBoard *board, int isRandom, int x, int y){
@@ -57,12 +57,10 @@ int backtracking(GameBoard *board, int isRandom, int x, int y){
 		++nextY;
 	}
 
-
 	/*
 	 * stop if the end of the table was reached
 	 */
 	if(x==TABLE_SIZE || y==TABLE_SIZE){
-		printf("finished solving\n");
 		return 1;
 	}
 	/*
@@ -78,7 +76,6 @@ int backtracking(GameBoard *board, int isRandom, int x, int y){
 		}
 
 		while(options>0 && success==0){
-
 			/*
 			 * choose a vlaue for the cell
 			 */

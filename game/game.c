@@ -19,6 +19,9 @@ int isFixed(int x,int y);
  * creates a deep copy of the game board.
  */
 void deepCopy(GameBoard *to, GameBoard *from);
+/*
+ * intialize the board to zero.
+ */
 void initBoard(GameBoard *board);
 
 
@@ -96,8 +99,8 @@ void hintCell(int x,int y){
 
 void validateBoard(){
 	GameBoard newSol, *temp;
-	/* ******************************** */
 	deepCopy(&newSol, &board);
+	printBoard(newSol);
 	temp = hasSolution(&newSol);
 	if (temp != NULL){
 		solution = *temp;
@@ -147,13 +150,13 @@ void printBoard(GameBoard board){
 						printf(" ");
 					else
 						printf("%d",board.boardMatrix[x][y][0]);
-					y++;
+					x++;
 				}
 				printf(" ");
 			}
 		printf("|\n");
-		y=0;
-		x++;
+		x=0;
+		y++;
 		}
 	}
 	printf("----------------------------------\n");

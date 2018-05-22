@@ -19,7 +19,8 @@ typedef struct gameBoardStruct{
 
 
 /* initialization function. recieves fixed cells amount using parser,
- * calls the generation functions of solver.h, stores board and solution, and prints board*/
+ * calls the generation functions of solver.h, stores board and solution, and prints board
+ * */
 int startGame();
 
 /*

@@ -19,7 +19,4 @@ int readFixedAmnt();
 int * readCommand();
 
 
-
-
-
 #endif /* PARSER_H_ */

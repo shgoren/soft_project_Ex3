@@ -9,11 +9,11 @@
 #include <string.h>
 #include <stdlib.h>
 
+/*
+ * parse a command after the type has been defined
+ */
 int * readSpecificCommand(int type, int varAmnt , char *delim);
 
-/*
- * read the amount of fixed cells 0-80
- */
 int readFixedAmnt(){
 	int amnt = -1;
 	while(amnt<0 || amnt>80 ){

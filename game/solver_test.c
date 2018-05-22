@@ -1,10 +1,3 @@
-/*
- * solver_test.c
- *
- *  Created on: 20 May 2018
- *      Author: hp envy
- */
-
 #include "solver.h"
 #include <stdio.h>
 
