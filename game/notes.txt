@@ -5,3 +5,5 @@ not enough numbers crash program (set 1 2\ hint 1)
 make sure all fixed values are indeed fixed upon game generation
 
 make sure that after puzzle is solved, all commands become invalid except exit and restart.
+
+add prints for validate functions
