@@ -1,4 +1,5 @@
-#include "parser.h"
+/*#include "parser.h"
+*/
 #include "game.h"
 #include <stdio.h>
 #include "solver.h"
@@ -53,22 +54,12 @@ int setCell(int z, int x, int y){
 
 
 int isLegalSet(GameBoard *board ,int z, int x, int y){
-	int i=0;
-	int j=0;
-	int currRow=x;
-	int currCol=y;
-	for(;currRow<9;currRow++){ /*scan relevant column for collisions*/
-		if(z==board->boardMatrix[currRow][y][0])
 	int i,j,currRow,currCol;
 
 
 	for(currRow=0;currRow<TABLE_SIZE;++currRow) /*scan relevant column for collisions*/
 		if(z==board->boardMatrix[currRow][y][0])
 			return 0;
-		}
-	}
-	for(;currCol<9;currCol++){/*scan relevant row for collisions*/
-			if(z==board->boardMatrix[x][currCol][0])
 
 	for(currCol=0;currCol<TABLE_SIZE;++currCol)/*scan relevant row for collisions*/
 			if(z==board->boardMatrix[x][currCol][0])
