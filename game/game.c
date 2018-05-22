@@ -25,11 +25,12 @@ void startGame(){
 	int x;
 	x = readFixedAmnt();
 	fullCells = x;
-	solution = *generateSolution(&board);
+	solution = *generateSolution(&solution);
+	printf("\n ------- solution --------\n");
+	printBoard(solution);
+	printf("\n -------------------------\n");
 	board = *generateBoard(&solution, &board , x);
-
 	printBoard(board);
-
 }
 
 
@@ -38,12 +39,13 @@ int setCell(int z, int x, int y){
 		printf("Error: cell is fixed\n");
 		return 0;
 	}
-	if(!isLegalSet(&board,z,x,y)){
+	if(!isLegalSet(&board,z+1,x,y)){
 		printf("Error: value is invalid\n");
 		return 0;
 	}
-	board.boardMatrix[x][y][0]=z;
+	board.boardMatrix[x][y][0]=z+1;
 	fullCells++;
+	printBoard(board);
 	if(isGameOver())
 		printf("Puzzle solved successfully\n");
 	return 1;
@@ -51,26 +53,51 @@ int setCell(int z, int x, int y){
 
 
 int isLegalSet(GameBoard *board ,int z, int x, int y){
+<<<<<<< HEAD
 	int i=0;
 	int j=0;
 	int currRow=x;
 	int currCol=y;
 	for(;currRow<9;currRow++){ /*scan relevant column for collisions*/
 		if(z==board->boardMatrix[currRow][y][0])
+=======
+	int i,j,currRow,currCol;
+
+	for(currRow=0;currRow<TABLE_SIZE;++currRow){
+		if(z==board->boardMatrix[currRow][y][0]){
+>>>>>>> origin/shahaf
 			return 0;
+		}
 	}
+<<<<<<< HEAD
 	for(;currCol<9;currCol++){/*scan relevant row for collisions*/
 			if(z==board->boardMatrix[x][currCol][0])
+=======
+
+	for(currCol=0;currCol<TABLE_SIZE;++currCol){
+			if(z==board->boardMatrix[x][currCol][0]){
+>>>>>>> origin/shahaf
 				return 0;
+			}
 		}
+
 	currRow=x-(x%BLOCK_SIZE);
 	currCol=y-(y%BLOCK_SIZE);
+<<<<<<< HEAD
 	for(;i<BLOCK_SIZE;i++){/*scan relevant block for collisions, starting top left corner.*/
 		for(;j<BLOCK_SIZE;j++){
 			if(z==board->boardMatrix[currRow+i][currCol+j][0])
 			return 0;
+=======
+	for(i=0;i<BLOCK_SIZE;i++){
+		for(j=0;j<BLOCK_SIZE;j++){
+			if(z==board->boardMatrix[currRow+i][currCol+j][0]){
+				return 0;
+>>>>>>> origin/shahaf
 			}
+		}
 	}
+
 	return 1;
 
 }
@@ -88,10 +115,16 @@ void hintCell(int x,int y){
 
 
 void validateBoard(){
-	GameBoard newSol;
+	GameBoard newSol, temp;
 	/* ******************************** */
 	deepCopy(&newSol, &board);
-	solution = *hasSolution(&newSol);
+	temp = *hasSolution(&newSol);
+	if (temp != NULL){
+		solution = temp;
+		printf("Validation passed: board is solvable\n");
+	}
+	else
+		printf("Validation failed: board is unsolvable\n");
 }
 
 /*

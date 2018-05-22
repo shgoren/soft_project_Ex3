@@ -2,6 +2,7 @@
 #include "solver.h"
 #include "parser.h"
 
+#define true 1
 
 int main(){
 	int *command;
@@ -9,7 +10,7 @@ int main(){
 	while(1){
 		command = readCommand();
 		if(command[0]==1 && !isGameOver()){ /* command is "set" */
-			setCell(command[1], command[2], command[3]);
+			setCell(command[3], command[1], command[2]);
 			continue;
 		}
 		if(command[0]==2 && !isGameOver()){ /* command is "hint" */
