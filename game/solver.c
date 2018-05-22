@@ -9,36 +9,6 @@ void setSeed(int seed){
 	srand(seed);
 }
 
-/*
- * x and y scale start from 0
- */
-int checkIfValid(GameBoard board, int x,int y, int z){
-	int i, j, xBlock, yBlock;
-
-	/* lowest coordinate of the block on x and y axis */
-	xBlock = (x/BLOCK_SIZE)*BLOCK_SIZE;
-	yBlock = (y/BLOCK_SIZE)*BLOCK_SIZE;
-
-	/* check row x */
-	for(i=0; i<TABLE_SIZE; ++i)
-		if(i != y)
-			if(board.boardMatrix[x][i][0] == z)
-				return 0;
-
-	/* check col y */
-	for(i=0; i<TABLE_SIZE; ++i)
-		if(i != x)
-			if(board.boardMatrix[x][i][0] == z)
-				return 0;
-
-	/* check block */
-	for(i=xBlock; i<xBlock+BLOCK_SIZE; ++i)
-		for(j=yBlock; j<yBlock+BLOCK_SIZE; ++j)
-			if(i!=x && j!=y)
-				if(board.boardMatrix[x][i][0] == z)
-					return 0;
-	return 1;
-}
 
 
 GameBoard* generateSolution(GameBoard *board){
@@ -65,7 +35,7 @@ GameBoard* generateBoard(GameBoard *solution,GameBoard *board, int fixedAmnt){
 
 GameBoard* hasSolution(GameBoard *board){
 	printf("copy of the curr board\n");
-	printBoard(board);
+	printBoard(*board);
 	if( backtracking(board, 0, 0, 0) == 1)
 		return board;
 	else

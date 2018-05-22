@@ -17,10 +17,7 @@
  */
 void setSeed();
 
-/*
- * check if z can be placed legally in (x,y) and print the corresponding message
- */
-int checkIfValid(GameBoard board, int z,int x, int y);
+
 
 GameBoard* generateSolution(GameBoard *board);
 

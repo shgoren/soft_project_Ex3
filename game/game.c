@@ -40,7 +40,7 @@ int setCell(int z, int x, int y){
 		printf("Error: cell is fixed\n");
 		return 0;
 	}
-	if(!isLegalSet(&board,z+1,x,y)){
+	if(!isLegalSet(&board,z+1,x,y)){ /*using z+1 because parser applied minus 1 to values */
 		printf("Error: value is invalid\n");
 		return 0;
 	}
@@ -118,9 +118,8 @@ void restartGame(){
  * close everything
  */
 void exitCommand(){
-	printf("Exiting…\n");
-	fullCells = 81;
-}
+	printf("Exiting...\n");
+	}
 
 /*
  * PRIVATE METHOMDS FOLLOW
