@@ -4,7 +4,6 @@
 
 int backtracking(GameBoard *board, int random, int x, int y);
 
-void printboardmat(GameBoard *board);
 
 void setSeed(int seed){
 	srand(seed);
@@ -21,13 +20,13 @@ int checkIfValid(GameBoard board, int x,int y, int z){
 	yBlock = (y/BLOCK_SIZE)*BLOCK_SIZE;
 
 	/* check row x */
-	for(i=1; i<TABLE_SIZE; ++i)
+	for(i=0; i<TABLE_SIZE; ++i)
 		if(i != y)
 			if(board.boardMatrix[x][i][0] == z)
 				return 0;
 
 	/* check col y */
-	for(i=1; i<TABLE_SIZE; ++i)
+	for(i=0; i<TABLE_SIZE; ++i)
 		if(i != x)
 			if(board.boardMatrix[x][i][0] == z)
 				return 0;
@@ -51,8 +50,9 @@ GameBoard* generateBoard(GameBoard *solution,GameBoard *board, int fixedAmnt){
 	int i,x, y;
 
 	for(i=0; i<fixedAmnt; ++i){
-		x = (rand() % 9)+1;
-		y = (rand() % 9)+1;
+		x = (rand() % 9);
+		y = (rand() % 9);
+
 		if( board->boardMatrix[x][y][0] == 0 ){
 			board->boardMatrix[x][y][0] = solution->boardMatrix[x][y][0];
 			board->boardMatrix[x][y][1] = 1;
@@ -60,7 +60,7 @@ GameBoard* generateBoard(GameBoard *solution,GameBoard *board, int fixedAmnt){
 		else
 			--i;
 	}
-	return solution;
+	return board;
 }
 
 GameBoard* hasSolution(GameBoard *board){
@@ -70,18 +70,28 @@ GameBoard* hasSolution(GameBoard *board){
 		return NULL;
 }
 
-int backtracking(GameBoard *board, int random, int x, int y){
+int backtracking(GameBoard *board, int isRandom, int x, int y){
+
+
+
 	int i, currVal = 0;
 	int possibleVals[TABLE_SIZE],
 		options = 0,
-		success=0;
+		success=0,
+		nextX = x,
+		nextY = y;
+	/*set the next cell coordinates */
+	++nextX;
+	if(nextX==TABLE_SIZE){
+		nextX=0;
+		++nextY;
+	}
 
-	printBoard(*board);
 
 	/*
 	 * stop if the end of the table was reached
 	 */
-	if(x==(TABLE_SIZE-1) && y==(TABLE_SIZE-1))
+	if(x==TABLE_SIZE || y==TABLE_SIZE)
 		return 1;
 	/*
 	 * check if cell is blank
@@ -95,29 +105,18 @@ int backtracking(GameBoard *board, int random, int x, int y){
 			options += possibleVals[i];
 		}
 
-		/* *****************8 */
-		printf("************%d , %d*********\n",x,y);
-		for(i=0; i<TABLE_SIZE; ++i){
-			printf("%d = %d ",i+1,isLegalSet(board,i+1,x,y));
-		}
-		/* *****************8 */
 		while(options>0 && success==0){
+
 			/*
 			 * choose a vlaue for the cell
 			 */
-
-			/* ********************************	 */
-			printf("\nin first while\n");
-			/* ********************************	 */
+			if(isRandom)
+				currVal = rand()%TABLE_SIZE;
 			while(possibleVals[currVal] == 0){
-				if(random)
+				if(isRandom)
 					currVal = rand()%TABLE_SIZE;
 				else
 					currVal++;
-
-				/* ********************************	 */
-				printf("in second while\n");
-				/* ********************************	 */
 			}
 
 			/*take the used value out	 */
@@ -128,34 +127,13 @@ int backtracking(GameBoard *board, int random, int x, int y){
 			 * place the value in the cell and make the recursive call
 			 */
 			board->boardMatrix[x][y][0] = currVal+1;
-			++x;
-			if(x==TABLE_SIZE){
-				x=0;
-				++y;
-			}
-			success = backtracking(board,random,x,y);
+
+			success = backtracking(board,isRandom,nextX,nextY);
 		}
 		if (success == 0)
 			board->boardMatrix[x][y][0] = 0;
 		return success;
 	}
 
-	/*
-	 * advance to next coordinate
-	 */
-	++x;
-	if(x==TABLE_SIZE){
-		x=0;
-		++y;
-	}
-
-	return backtracking(board,random,x,y);
-}
-
-void printboardmat(GameBoard *board){
-	int i,j;
-
-	for (i=0; i<TABLE_SIZE; ++i)
-		for (j=0; j<TABLE_SIZE; ++j)
-			printf("%d",board->boardMatrix[i][j][0]);
+	return backtracking(board,isRandom,nextX,nextY);
 }
