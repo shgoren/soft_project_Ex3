@@ -98,12 +98,12 @@ void hintCell(int x,int y){
  * return if the board is solvable or not and stores new solution. hasSolution is in charge of the prints
  */
 void validateBoard(){
-	GameBoard newSol, temp;
+	GameBoard newSol, *temp;
 	/* ******************************** */
 	deepCopy(&newSol, &board);
-	temp = *hasSolution(&newSol);
-	if (temp != NULL){
-		solution = temp;
+	temp = hasSolution(&newSol);
+	if (temp == NULL){
+		solution = *temp;
 		printf("Validation passed: board is solvable\n");
 	}
 	else
