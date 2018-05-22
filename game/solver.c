@@ -44,8 +44,6 @@ GameBoard* hasSolution(GameBoard *board){
 
 int backtracking(GameBoard *board, int isRandom, int x, int y){
 
-
-
 	int i, currVal = 0;
 	int possibleVals[TABLE_SIZE],
 		options = 0,
@@ -66,9 +64,7 @@ int backtracking(GameBoard *board, int isRandom, int x, int y){
 	if(x==TABLE_SIZE || y==TABLE_SIZE){
 		printf("finished solving\n");
 		return 1;
-<<<<<<< HEAD
-
-=======
+	}
 	/*
 	 * check if cell is blank
 	 */
