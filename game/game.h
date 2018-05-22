@@ -49,7 +49,6 @@ void restartGame();
   */
 void exitCommand();
 
-
 /*
  * prints gameboard
  */
