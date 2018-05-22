@@ -11,8 +11,6 @@
 #define TABLE_SIZE 9
 #define BLOCK_SIZE 3
 
-/*#include "parser.h"*/
-
 typedef struct gameBoardStruct{
 	int boardMatrix[TABLE_SIZE][TABLE_SIZE][2];
 } GameBoard;

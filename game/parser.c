@@ -1,9 +1,3 @@
-/*
- * parser.c
- *
- *  Created on: 17 May 2018
- *      Author: hp envy
- */
 #include <stdio.h>
 #include "parser.h"
 #include <string.h>
