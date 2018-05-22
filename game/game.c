@@ -61,6 +61,7 @@ int isLegalSet(GameBoard *board ,int z, int x, int y){
 		if(z==board->boardMatrix[currRow][y][0])
 	int i,j,currRow,currCol;
 
+
 	for(currRow=0;currRow<TABLE_SIZE;++currRow) /*scan relevant column for collisions*/
 		if(z==board->boardMatrix[currRow][y][0])
 			return 0;
