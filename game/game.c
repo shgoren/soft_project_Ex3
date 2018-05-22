@@ -33,9 +33,6 @@ int startGame(){
 		return 0;
 	fullCells = x;
 	solution = *generateSolution(&solution);
-	printf("\n ------- solution --------\n");
-	printBoard(solution);
-	printf("\n -------------------------\n");
 	board = *generateBoard(&solution, &board , x);
 	printBoard(board);
 	return 1;
